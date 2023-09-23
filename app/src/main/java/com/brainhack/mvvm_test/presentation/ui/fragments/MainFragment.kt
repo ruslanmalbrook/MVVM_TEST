@@ -13,23 +13,19 @@ import com.brainhack.mvvm_test.data.storage.sharedprefs.SharedPrefsUserStorage
 import com.brainhack.mvvm_test.databinding.FragmentMainBinding
 import com.brainhack.mvvm_test.domain.usecases.GetUserNameUseCase
 import com.brainhack.mvvm_test.domain.usecases.SaveUserNameUseCase
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: MainFragmentViewModel
+    private val viewModel: MainFragmentViewModel by viewModel<MainFragmentViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Log.e("AAA", "Fragment created")
-
-        viewModel = ViewModelProvider(
-            this,
-            MainFragmentViewModelFactory(requireContext().applicationContext)
-        )[MainFragmentViewModel::class.java]
     }
 
     override fun onCreateView(

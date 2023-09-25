@@ -8,30 +8,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.brainhack.mvvm_test.data.repositories.UserRepositoryImpl
-import com.brainhack.mvvm_test.data.storage.sharedprefs.SharedPrefsUserStorage
+import com.brainhack.mvvm_test.app.App
 import com.brainhack.mvvm_test.databinding.FragmentMainBinding
-import com.brainhack.mvvm_test.domain.usecases.GetUserNameUseCase
-import com.brainhack.mvvm_test.domain.usecases.SaveUserNameUseCase
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import javax.inject.Inject
 
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MainFragmentViewModel by viewModel<MainFragmentViewModel>()
+    @Inject
+    lateinit var viewModelFactory: MainFragmentViewModelFactory
+    private lateinit var viewModel: MainFragmentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        (requireActivity().applicationContext as App).appComponent.inject(this)
+
         Log.e("AAA", "Fragment created")
+
+        viewModel = ViewModelProvider(
+            this, viewModelFactory
+        )[MainFragmentViewModel::class.java]
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         _binding = FragmentMainBinding.inflate(inflater, container, false)
@@ -50,7 +53,7 @@ class MainFragment : Fragment() {
         }
 
         binding.saveDataBtn.setOnClickListener {
-           viewModel.save(binding.saveDataText.text.toString())
+            viewModel.save(binding.saveDataText.text.toString())
         }
     }
 

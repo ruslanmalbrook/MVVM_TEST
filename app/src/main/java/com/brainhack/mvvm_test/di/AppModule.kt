@@ -1,11 +1,29 @@
 package com.brainhack.mvvm_test.di
 
-import com.brainhack.mvvm_test.presentation.ui.fragments.MainFragmentViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
+import android.content.Context
+import com.brainhack.mvvm_test.domain.usecases.GetUserNameUseCase
+import com.brainhack.mvvm_test.domain.usecases.SaveUserNameUseCase
+import com.brainhack.mvvm_test.presentation.ui.fragments.MainFragmentViewModelFactory
+import dagger.Module
+import dagger.Provides
 
-val appModule = module {
-    viewModel<MainFragmentViewModel> {
-        MainFragmentViewModel(getUserDataUseCase = get(), setUserDataUseCase = get())
+@Module
+class AppModule(val context: Context) {
+
+    @Provides
+    fun provideContext(): Context {
+        return context
     }
+
+//    @Provides
+//    fun provideMainFragmentViewModelFactory(
+//        getUserNameUseCase: GetUserNameUseCase,
+//        saveUserNameUseCase: SaveUserNameUseCase
+//    ): MainFragmentViewModelFactory {
+//
+//        return MainFragmentViewModelFactory(
+//            getUserNameUseCase = getUserNameUseCase,
+//            saveUserNameUseCase = saveUserNameUseCase
+//        )
+//    }
 }

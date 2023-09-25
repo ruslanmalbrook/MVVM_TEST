@@ -1,16 +1,26 @@
 package com.brainhack.mvvm_test.di
 
+import com.brainhack.mvvm_test.data.repositories.UserRepositoryImpl
+import com.brainhack.mvvm_test.domain.repositories.UserRepository
 import com.brainhack.mvvm_test.domain.usecases.GetUserNameUseCase
 import com.brainhack.mvvm_test.domain.usecases.SaveUserNameUseCase
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
 
-val domainModule = module {
+@Module
+class DomainModule {
 
-     factory<GetUserNameUseCase> {
-         GetUserNameUseCase(userRepository = get())
-     }
-
-    factory<SaveUserNameUseCase> {
-        SaveUserNameUseCase(userRepository = get())
-    }
+//    @Provides
+//    fun provideUserDataUseCase(userRepository: UserRepository): GetUserNameUseCase {
+//        return GetUserNameUseCase(
+//            userRepository = userRepository
+//        )
+//    }
+//
+//    @Provides
+//    fun provideSaveUserDataUseCase(userRepository: UserRepository): SaveUserNameUseCase {
+//        return SaveUserNameUseCase(
+//            userRepository = userRepository
+//        )
+//    }
 }

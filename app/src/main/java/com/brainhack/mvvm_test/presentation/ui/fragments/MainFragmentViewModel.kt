@@ -9,8 +9,11 @@ import com.brainhack.mvvm_test.data.storage.sharedprefs.SharedPrefsUserStorage
 import com.brainhack.mvvm_test.domain.models.SaveUserNameParam
 import com.brainhack.mvvm_test.domain.usecases.GetUserNameUseCase
 import com.brainhack.mvvm_test.domain.usecases.SaveUserNameUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainFragmentViewModel(
+@HiltViewModel
+class MainFragmentViewModel @Inject constructor(
     private val getUserDataUseCase: GetUserNameUseCase,
     private val setUserDataUseCase: SaveUserNameUseCase
     ) : ViewModel() {

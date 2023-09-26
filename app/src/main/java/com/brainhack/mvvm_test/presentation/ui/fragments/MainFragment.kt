@@ -7,29 +7,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.brainhack.mvvm_test.data.repositories.UserRepositoryImpl
 import com.brainhack.mvvm_test.data.storage.sharedprefs.SharedPrefsUserStorage
 import com.brainhack.mvvm_test.databinding.FragmentMainBinding
 import com.brainhack.mvvm_test.domain.usecases.GetUserNameUseCase
 import com.brainhack.mvvm_test.domain.usecases.SaveUserNameUseCase
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: MainFragmentViewModel
+    private val viewModel: MainFragmentViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Log.e("AAA", "Fragment created")
-
-        viewModel = ViewModelProvider(
-            this,
-            MainFragmentViewModelFactory(requireContext().applicationContext)
-        )[MainFragmentViewModel::class.java]
     }
 
     override fun onCreateView(
